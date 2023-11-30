@@ -2,6 +2,6 @@ package com.ll.sbbmission;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AnswerRepository extends JpaRepository<Question, Integer> {
+public interface AnswerRepository extends JpaRepository<Answer, Integer> {
 
 }
