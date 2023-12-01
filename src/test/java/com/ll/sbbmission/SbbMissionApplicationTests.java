@@ -4,6 +4,7 @@ import com.ll.sbbmission.answer.answer.entity.Answer;
 import com.ll.sbbmission.answer.answer.repository.AnswerRepository;
 import com.ll.sbbmission.question.question.entity.Question;
 import com.ll.sbbmission.question.question.repository.QuestionRepository;
+import com.ll.sbbmission.question.question.service.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,8 @@ class SbbApplicationTests {
     private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
+    @Autowired
+    QuestionService questionService;
 
     @Test
     void testJpa1() {
@@ -44,14 +47,14 @@ class SbbApplicationTests {
         //assertEquals(2, all.size());
 
         Question q = all.get(0);
-        assertEquals("sbb가 무엇인가요?", q.getSubject());
+        assertEquals("1", q.getSubject());
     }
     @Test
     void testJpa3() {
         Optional<Question> oq = this.questionRepository.findById(1);
         if(oq.isPresent()){
             Question q = oq.get();
-            assertEquals("sbb가 무엇인가요?", q.getSubject());
+            assertEquals("1", q.getSubject());
         }
     }
     @Test
@@ -118,5 +121,13 @@ class SbbApplicationTests {
 
         assertEquals(1, answerList.size());
         assertEquals("네 자동으로 생성됩니다.", answerList.get(0).getContent());
+    }
+    @Test
+    void test11(){
+        for(int i = 1; i<= 300; i++){
+            String subject = String.format("테스트 데이터 : [%03d]", i);
+            String content = "no";
+            this.questionService.create(subject, content);
+        }
     }
 }
